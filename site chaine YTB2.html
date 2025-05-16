@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bienvenue</title>
+  <style>
+    body {
+      background-color: #2e2e2e;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .header {
+      background-color: #222;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header h1 {
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .profile-pic {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      cursor: pointer;
+    }
+
+    .profile-message {
+      position: absolute;
+      right: 110px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 220px;
+      font-size: 16px;
+      background-color: white;
+      color: black;
+      padding: 12px 16px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      text-align: left;
+    }
+
+    .profile-message::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid white;
+    }
+
+    .profile-message.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .link, .friends-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 15px 30px;
+      font-size: 24px;
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+    }
+
+    .link img, .friends-btn img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .link:hover, .friends-btn:hover {
+      background-color: #666;
+    }
+
+    .friends-btn {
+      font-size: 22px;
+    }
+
+    .dropdown {
+      position: relative;
+      margin-top: 10px;
+    }
+
+    .dropdown-content {
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-color: #444;
+      border-radius: 5px;
+      z-index: 1;
+      width: 300px;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .dropdown.open .dropdown-content {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      border-bottom: 1px solid #333;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #666;
+    }
+
+    .gear {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-color: #222;
+      mask: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Mechanical_gear.svg/120px-Mechanical_gear.svg.png') no-repeat center;
+      -webkit-mask: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Mechanical_gear.svg/120px-Mechanical_gear.svg.png') no-repeat center;
+    }
+
+    .gear.left {
+      left: 10px;
+      bottom: 10px;
+    }
+
+    .gear.right {
+      right: 10px;
+      bottom: 10px;
+    }
+
+    .secret-btn {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      width: 40px;
+      height: 40px;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .secret-btn:hover {
+      opacity: 0.2;
+      background-color: white;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Bienvenue</h1>
+    <div id="profileMsg" class="profile-message">Abonne-toi !</div>
+    <img class="profile-pic" src="https://yt3.ggpht.com/DetLBI8rd3YKogzM1fC5AHRfvl19zeiXfkLYps0_5fZ1lC77_ikLloGg34KoYw_f0w5CcOIX9A=s176-c-k-c0x00ffffff-no-rj" alt="Photo de profil" onclick="toggleProfileMessage()">
+    <div class="gear left"></div>
+    <div class="gear right"></div>
+  </div>
+
+  <a class="link" href="https://discord.gg/UKPdfG4A" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord">
+    Rejoindre le Discord
+  </a>
+
+  <a class="link" href="https://www.youtube.com/@anciennechaine" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+    Ancienne chaîne
+  </a>
+
+  <a class="link" href="https://www.youtube.com/@NathanJules-nf4gp" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+    Nathan & Jules
+  </a>
+
+  <div class="dropdown">
+    <button class="friends-btn" onclick="toggleDropdown()">Amis</button>
+    <div class="dropdown-content" id="dropdownMenu">
+      <a href="https://www.youtube.com/@EvilGame" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" style="width: 16px; height: 16px;">
+        EvilGame
+      </a>
+      <a href="https://www.youtube.com/@nathan17540" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" style="width: 16px; height: 16px;">
+        Nathan
+      </a>
+    </div>
+  </div>
+
+  <div class="secret-btn" onclick="window.location.href='https://www.youtube.com/@julespetit6972'"></div>
+
+<script>
+  let profileState = 0; // 0 = Prochain message = "Abonne-toi", 1 = "C’est bon, c’est fait ?"
+  let profileTimeout;
+  let msgVisible = false;
+
+  function toggleProfileMessage() {
+    const msg = document.getElementById('profileMsg');
+
+    if (!msgVisible) {
+      // Affiche le message selon l’état
+      msg.innerText = profileState === 0 ? "Abonne-toi !" : "C’est bon, c’est fait ?";
+      msg.classList.add('show');
+      msgVisible = true;
+
+      // Laisser 5 secondes puis cacher automatiquement
+      clearTimeout(profileTimeout);
+      profileTimeout = setTimeout(() => {
+        hideProfileMessage();
+      }, 5000);
+
+      // Préparer l’état pour le prochain clic
+      profileState = (profileState + 1) % 2;
+    }
+  }
+
+  function hideProfileMessage() {
+    const msg = document.getElementById('profileMsg');
+    msg.classList.remove('show');
+    msgVisible = false;
+  }
+
+  function toggleDropdown() {
+    const dropdown = document.querySelector('.dropdown');
+    dropdown.classList.toggle('open');
+  }
+
+  document.addEventListener('click', function (event) {
+    const dropdown = document.querySelector('.dropdown');
+    const button = dropdown.querySelector('.friends-btn');
+    const menu = dropdown.querySelector('.dropdown-content');
+    if (!button.contains(event.target) && !menu.contains(event.target)) {
+      dropdown.classList.remove('open');
+    }
+  });
+</script>
+
+</body>
+</html>
+
